@@ -5,6 +5,7 @@
 //  Created by Vin Bui on 10/31/23.
 //
 
+import SnapKit
 import UIKit
 
 class ViewController: UIViewController {
@@ -56,14 +57,10 @@ class ViewController: UIViewController {
         collectionView.dataSource = self
 
         view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 
 }

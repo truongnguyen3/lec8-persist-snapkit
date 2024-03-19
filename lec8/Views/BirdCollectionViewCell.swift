@@ -5,6 +5,7 @@
 //  Created by Vin Bui on 10/31/23.
 //
 
+import SnapKit
 import UIKit
 
 class BirdCollectionViewCell: UICollectionViewCell {
@@ -54,14 +55,11 @@ class BirdCollectionViewCell: UICollectionViewCell {
         birdImage.contentMode = .scaleAspectFit
 
         contentView.addSubview(birdImage)
-        birdImage.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([
-            birdImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            birdImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            birdImage.heightAnchor.constraint(equalToConstant: 128),
-            birdImage.widthAnchor.constraint(equalToConstant: 128)
-        ])
+        birdImage.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.height.width.equalTo(128)
+        }
     }
 
     private func setupNameLabel() {
@@ -69,24 +67,21 @@ class BirdCollectionViewCell: UICollectionViewCell {
         birdNameLabel.font = .systemFont(ofSize: 20, weight: .medium)
 
         contentView.addSubview(birdNameLabel)
-        birdNameLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([
-            birdNameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            birdNameLabel.topAnchor.constraint(equalTo: birdImage.bottomAnchor, constant: 4)
-        ])
+        birdNameLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(birdImage.snp.bottom).offset(4)
+        }
     }
 
     private func setupStarIcon() {
         contentView.addSubview(starIcon)
         starIcon.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([
-            starIcon.topAnchor.constraint(equalTo: contentView.topAnchor),
-            starIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            starIcon.widthAnchor.constraint(equalToConstant: 24),
-            starIcon.heightAnchor.constraint(equalToConstant: 24)
-        ])
+        starIcon.snp.makeConstraints { make in
+            make.top.trailing.equalToSuperview()
+            make.width.height.equalTo(24)
+        }
     }
 
 }
