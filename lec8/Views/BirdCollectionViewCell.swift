@@ -37,9 +37,12 @@ class BirdCollectionViewCell: UICollectionViewCell {
         birdImage.image = UIImage(named: bird.image)
         birdNameLabel.text = bird.name
 
-        // TODO: Unfilled or filled?
-        starIcon.image = UIImage(systemName: "star.fill")
-        starIcon.image = UIImage(systemName: "star")
+        let favorites = UserDefaults.standard.array(forKey: "favorites") as? [String] ?? []
+        if favorites.contains(bird.name) {
+            starIcon.image = UIImage(systemName: "star.fill")
+        } else {
+            starIcon.image = UIImage(systemName: "star")
+        }
     }
 
     // MARK: - Set Up Views

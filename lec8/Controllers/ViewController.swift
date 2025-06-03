@@ -95,3 +95,29 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
 
 }
+
+// MARK: - UICollectionViewDelegate
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 1. get the bird at index
+        let bird = birds[indexPath.row]
+        
+        // 2. fetch favorited birds with UserDefaults
+        var favorites = UserDefaults.standard.array(forKey: "favorites") as? [String] ?? []
+        
+        // 3. toggle favorites
+        if favorites.contains(bird.name) {
+            // name is already stored in UserDefaults -> remove from favorites
+            favorites.removeAll { name in
+                name == bird.name
+            }
+        } else {
+            favorites.append(bird.name)
+        }
+        
+        // 4. update UserDefaults
+        UserDefaults.standard.setValue(favorites, forKey: "favorites")
+        
+        collectionView.reloadData()
+    }
+}
